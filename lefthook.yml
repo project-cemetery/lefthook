@@ -1,4 +1,0 @@
-pre-commit:
-  commands:
-    frontend-linter:
-      run: echo 0;
