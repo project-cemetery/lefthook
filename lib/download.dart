@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 
-import 'package:yaml/yaml.dart';
+import 'package:lefthook/config.dart';
 import 'package:archive/archive.dart';
 import 'package:archive/archive_io.dart';
 import 'package:cli_util/cli_logging.dart';
@@ -15,7 +15,7 @@ void ensureExecutable(String targetPath, {bool force = false}) async {
     return;
   }
 
-  final url = await _resolveDownloadUrl();
+  final url = _resolveDownloadUrl();
 
   logger.stdout('Download executable for lefthook...');
   logger.stdout(url);
@@ -41,15 +41,7 @@ void ensureExecutable(String targetPath, {bool force = false}) async {
   logger.stdout('All done!');
 }
 
-Future<String> _resolveDownloadUrl() async {
-  Future<String> getVersion() async {
-    final specPath = Platform.script.resolve('../pubspec.yaml').toFilePath();
-    final spec = await new File(specPath).readAsString().then(loadYaml);
-    final version = spec['version'];
-
-    return version;
-  }
-
+String _resolveDownloadUrl() {
   String getOS() {
     if (Platform.isLinux) {
       return 'Linux';
@@ -78,11 +70,10 @@ Future<String> _resolveDownloadUrl() async {
     throw new Error();
   }
 
-  final version = await getVersion();
   final os = getOS();
   final architecture = getArchitecture();
 
-  return 'https://github.com/Arkweid/lefthook/releases/download/v${version}/lefthook_${version}_${os}_${architecture}.gz';
+  return 'https://github.com/Arkweid/lefthook/releases/download/v${LEFTHOOK_VERSION}/lefthook_${LEFTHOOK_VERSION}_${os}_${architecture}.gz';
 }
 
 Future<List<int>> _downloadFile(String url) async {
