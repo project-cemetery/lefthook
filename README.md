@@ -21,7 +21,7 @@ This repo is just Dart-wrapper for [Lefthook](https://github.com/Arkweid/lefthoo
 pub global activate lefthook
 ```
 
-You are beautiful! Just create `lefthook.yml` with description of hooks, and start using it.
+You are beautiful! Just create `lefthook.yml` in root of your project, add description of hooks, and start using it.
 
 ## Examples
 
@@ -30,6 +30,8 @@ You are beautiful! Just create `lefthook.yml` with description of hooks, and sta
 For project based on Flutter, you can run formatter before every commit and run tests and static analysis before push.
 
 ```yml
+# lefthook.yml
+
 pre-push:
   parallel: true
   commands:
