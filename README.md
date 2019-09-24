@@ -21,4 +21,30 @@ This repo is just Dart-wrapper for [Lefthook](https://github.com/Arkweid/lefthoo
 pub global activate lefthook
 ```
 
-You are beautiful!
+You are beautiful! Just create `lefthook.yml` with description of hooks, and start using it.
+
+## Examples
+
+### Flutter
+
+For project based on Flutter, you can run formatter before every commit and run tests and static analysis before push.
+
+```yml
+pre-push:
+  parallel: true
+  commands:
+    tests:
+      run: flutter test
+    linter:
+      run: flutter analyze lib
+
+pre-commit:
+  commands:
+    pretty:
+      glob: "*.dart"
+      run: flutter format {staged_files}
+```
+
+### More
+
+More examples in [documentation of original repository](https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md#examples).
